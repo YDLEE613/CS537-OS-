@@ -1,1 +1,24 @@
+Written by: Won Jun Cho(wcho8, won), Yoodong(ydlee399, yoodong)
+Program: A Safe malloc/free library
 
+Description of Files
+---------------------------------------------------------------
+537malloc.c
+        - Implement functions for allocating/reallocating memory
+        - Implement function for freeing memory
+        - Implement function for checking memory
+
+537tree.c
+        - Implementations for building an AVL tree
+                - Initialize a node
+                - Add a node to a tree
+                - Find the node that does not follow AVL tree rule
+                - Search a node in a tree
+                - Free a memory that a node holds
+                - Check if the memory is appropriate
+                - Rearrange a tree after realloc
+                - Rotate either to the left or the right when unbalanced node is found
+
+537tree.h
+        - Node struct to store address to the memory block, size, children, and other variables
+---------------------------------------------------------------
