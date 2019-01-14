@@ -1,1 +1,47 @@
+Written by: Won Jun Cho(wcho8, won), Yoodong Lee(ydlee399, yoodong)
+Program: prodcomm
 
+Description of Files
+---------------------------------------------------------
+main.c
+	- Make four threads and four queues.
+	- Make semaphore arguement for input.
+	- Initialize queues and malloc size of the queue.
+	- Create each thread in order.
+	- Join threads in order.
+	- Destroy queues and semaphore at last.
+	- Exit if there are errors
+
+reader.c
+	- Loop of characters to ensure that there is no error or end of file.
+	- Store string into the queues[0] and enqueue it.
+	- Exit if there are errors
+	
+munch1.c
+	- Dequeue queues[0] and its string.
+	- Get string characters from the queue and change space characters to "*".
+	- Store data into the queues[1] and enqueue it.
+	- Exit if there are errors.
+
+munch2.c
+	- Dequeue queues[1] and its string.
+	- Get string characters from the queue and change lower case to upper case.
+	- Store data into the queues[2] and enqueue it.
+	- Exit if there are errors.
+	
+writer.c
+	- Dequeue queues[2] and its string.
+	- Print changed string characters to standard output.
+	- Print the number of strings that was printed.
+	- Print the statistics of each Queue.
+	- Exit if there are errors.
+
+queue.c
+	- Initialize queues/semaphores.
+	- Enqueue/Dequeue the data.
+	- Prints the statistics for the queue.
+
+queue.h
+	- Make struct queue with semaphores and data.
+	
+---------------------------------------------------------
