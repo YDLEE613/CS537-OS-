@@ -1,1 +1,53 @@
+Written by: Won Jun Cho(wcho8, won), Yoodong Lee(ylee399, yoodong)
+Program: Valgrind (#3-1)
+
+Description of errors and changes
+------------------------
+Issue: Uninitialized values error
+
+File, line:
+1.(text_parsing.c, 73)
+2.(text_parsing.c, 200)
+3.(build_spec_repr.c, 9)
+4.(proc_creation_prog_exe.c, 16)
+5.(main.c, 51)
+
+Change:
+1~5. We changed malloc() to calloc() when allocating memory since we found that malloc() does not initialize the allocated memory while calloc() does initialize allocated momery blocks.
+
+------------------------
+Issue: Leaked memory
+
+File, line:
+1.(build_spec_repr.c, 75)
+2.(main.c,82~90)
+3.(proc_creation_prog_exe.c, 86)
+4.(proc_creation_prog_exe.c, 103)
+5.(proc_creation_prog_exe.c, 139)
+
+Change:
+1. We added a void function that frees a node.
+2. We added codes to free any dynamically allocated memory with malloc() after we are done using them.
+3~5. We freed memory that are not going to be used any more.
+
+------------------------
+Issue: Extra
+
+File, line:
+1.(proc_creation_prog_exe.c, 16)
+2.(proc_creation_prog_exe.c, 138)
+3.(text_parsing.c, 50)
+
+Change:
+1. We increased the size by 1 for null-terminating string
+2. We added NULL to the end of each command for execvp()
+3. We closed the directory done using.
+
+------------------------
+Remaining errors: 3 (talked with Matthew Crepea)
+
+Issue:
+We still have three errors remaining after valgrind. We believe that all of them are due to the allocated memory while parsing makefile. We allocated memory by malloc() to read the makefile line by line, and determine if it is target, dependency or command. If it is a target, we initialize p_node (text_parsing.c, 169) with the buffer(input (char*)) that is read. If it is a dependency, we initialize c_node (text_parsing.c, 175&179) with the buffer. If it is a command, we add the command to a node (text_parsing.c, 186). Since we get the buffer with the variable called "input" (text_parsing.c, 82) at every round of the while loop (text_parsing.c, 79), the variable "input" is supposed to be freed at the end of the while loop. However, since it is a pointer, and it points to the name and the commands of every node, it should not be freed in the while loop because they are the part of the graph that is used until the end of the program. 
+The remaining errors or the leak of memory all come from the parts that involves the variable "input" and from the calloc'ed memory (build_spec_repr.c, 9) that has the "input" as part of it. Thus, since it is the part that is needed until the end of the program, it is not harmful errors. 
+
 

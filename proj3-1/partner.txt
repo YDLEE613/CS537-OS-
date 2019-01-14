@@ -1,0 +1,3 @@
+student,full name (as in Canvas),Net ID,CS ID,wisc email (not CS email),campus ID number
+1,Won Jun Cho,wcho8,won,wcho8@wisc.edu,9068399584
+2,Yoodong Lee,ylee399,yoodong,ylee399@wisc.edu,9068385526
