@@ -1,46 +1,33 @@
-There are several goals for this assignment.
+Name: Yoodong Lee, Won Jun Cho
+Program: 537ps (simple version of the ps command)
 
-(Re-)familiarize yourself with the C programming language. Dealing with separate compilation is likely to be new to many of you.
-Learn how to use some of the I/O facilities and library functions provided by UNIX and C. There are likely to be some new functions that you have not seen yet.
-Get experience with some of the system level interfaces provided in Linux. Operating system have many interesting dark corners, and you will get a chance to peek around one of them.
-Get some insights as to how an important Linux utility works.
-Get experience with separate compilation, makefiles, and the Linux gdb debugger.
-Your assignment is to write a simple version of the ps command. Your version of ps, called 537ps be executed from a command line. It will read a variety of information about one or more running programs (processes) on the computer, and then display that information. As an example of what your program will do, consider a command such as:
-
-    537ps -p 1234 -s -U -c
-This runs your ps command, and displays the status letter (in this case, running), amount of user time, and the command line for process 1234. You might expect the output to look like:
-1234: R utime=150 [myprog -x -y file1 myoption]
-UNIX/Linux Manual Pages and Other information Sources
-Any serious systems programmer working on Linux (or other UNIX-like systems) needs to be familiar with the manuals and the online "man" facility. This will be a great help in working on these assignments. For example, if you wanted to know how the ps (list processes) command works, you would type:
-    man 1 ps
-Or you can find the manual page on the web using Google. However, the versions installed on your particular Linux system, accessible via the man command, will be the definitive and accurate version for your system.
-The UNIX manual is organized into many sections. You will be mainly interested in the first three sections. Section 1 is for commands, like ls, gcc, or cat. Section 2 is for UNIX system calls (calls directly to the UNIX kernel), such as fork, open, or read. You will typically not use Section 2. The UNIX library routines are in Section 3. These are calls such as atof, or strcpy.
-
-Another function in Section 3 that will be useful for this assignment is the C library function that handles command-line argument parsing. The man page for that function is found by typing:
-
-   man 3 getopt
-Note that you want to make sure that you get the getopt from Section 3, as the getopt in Section 1 is a command, not a library (and not what you need). The cool part about the getopt manual page is that there is an "EXAMPLE" section that shows you how to use it. This example will help you to get started.
-You will need to be able to read the contents of a Linux directory (in this case, /proc. For this purpose, you will use the readdir library function. The man page for that function is found by typing:
-
-   man 3 readdir
-Here, the "3" is also essential, or you will get the man page for a lower-level function that is much harder to use. There are a lot of examples of code on the Web showing you how to use readdir. Here is one such example provided by IBM.
-There is another, less well-known section of the manual, which will be critical for this assignment. You will need to understand the format of the /proc file system (sometimes called the procfs), and for that use, you would type:
-
-   man 5 proc
-You can also learn about /proc from Web sources such as this: The proc File System. And here is a nice sample program that opens a directory and reads the directory entries.
-More details about the online manual will be given in Discussion Section.
-
-Program Features
-Your program will will implement the features triggered by the following options.
+Argument
+------------------------------------------------------------
 -p <pid>
-Display process information only for the process whose number is pid. It does not matter if the specified process is owned by the current user. If this option is not present then display information for all processes of the current user (and only of the current user).
+  Display process information only for the process whose number is pid. 
 -s
-Display the single-character state information about the process. This information is found in the stat file in process's directory, looking at the third ("state") field. Note that the information that you read from the stat file is a character string. This option defaults to be false, so if it is not present, do not display this information. -s- is valid but has no effect.
+  Display the single-character state information about the process. 
 -U
-Display the amount of user time consumed by this process. This information is found in the stat file in process's directory, looking at the "utime" field. This option defaults to be true, so if it is not present, then this information is displayed. -U- turns this option off.
+  Display the amount of user time consumed by this process. 
 -S
-Display the amount of system time consumed so far by this process. This information is found in the stat file in process's directory, looking at the "stime" field. This option defaults to be false, so if it is not present, then this information is not displayed. -S- is valid but has no effect.
+  Display the amount of system time consumed so far by this process. 
 -v
-Display the amount of virtual memory currently being used (in pages) by this program. This information is found in the statm file in process's directory, looking at first ("size") field. This option defaults to be false, so if it is not present, then this information is not displayed. -v- is valid but has no effect.
+  Display the amount of virtual memory currently being used (in pages) by this program.
 -c
-Display the command-line that started this program. This information is found in the cmdline file in process's directory. Be careful on this one, because this file contains a list of null (zero byte) terminated strings. This option defaults to be true, so if it is not present, then this information is displayed. -c- turns this option off.
+  Display the command-line that started this program. 
+------------------------------------------------------------
+
+Description of Files
+------------------------------------------------------------
+main.c:  
+  - parse command line options
+  - exit if there are invalid options
+
+process.c:
+  - read directories only with number and then read necessary files based on the existence of -p option
+  - exit if there are invalid directories
+
+procHelp.c:
+  - read stat, statm, and cmdline files and parse necessary data
+  - exit if there are invalid directories or files
+------------------------------------------------------------
