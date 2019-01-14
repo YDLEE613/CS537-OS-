@@ -1,1 +1,39 @@
+Written by: Won Jun Cho(wcho8, won), Yoodong Lee(ydlee399, yoodong)
+Program: Make
 
+Description of Files
+-------------------------------------------------------------------
+main.c
+      - Combines all function execution from other .c files 
+      - Enables -f option
+      - Exit if there are errors
+      
+text_parsing.c
+      - Find makefile or Makefile in current directory
+      - Read the makefile and parse target, dependencies, and commands
+      - Exit if there are errors
+      - Add child (dependencies) to parent (target)
+      - Return an array of target nodes
+      - Exit if there are errors
+
+build_spec_repr.c
+      - Handles implementations for building TNode struct
+      - Access and update variables in TNode struct
+      - Exit if there are errors
+      
+build_spec_repr.h
+      - Make struct TNode to store target, dependencies, and commands
+
+build_spec_graph.c
+      - Handles implementations for building a graph with an array of TNode struct
+      - Change the order of the array of TNode struct to be in post-order
+      - Connect all the parent and child to build a graph with a root node
+	  - Check if there is a cycle in the graph
+      - Implement custom-make to enable command-line argument for 537make (ex: 537make main1.o)
+      - Exit if there are errors
+
+proc_creation_prog_exe.c
+      - Handles implementations for executing commands for each TNode
+      - Uses fork(), execvp(), stat() to execute commands
+      - Exit if there are errors
+-------------------------------------------------------------------
