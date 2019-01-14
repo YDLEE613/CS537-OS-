@@ -1,1 +1,33 @@
+Name: Yoodong Lee, Won Jun Cho
+Program: 537ps (simple version of the ps command)
 
+Argument
+------------------------------------------------------------
+-p <pid>
+  Display process information only for the process whose number is pid. 
+-s
+  Display the single-character state information about the process. 
+-U
+  Display the amount of user time consumed by this process. 
+-S
+  Display the amount of system time consumed so far by this process. 
+-v
+  Display the amount of virtual memory currently being used (in pages) by this program.
+-c
+  Display the command-line that started this program. 
+------------------------------------------------------------
+
+Description of Files
+------------------------------------------------------------
+main.c:  
+  - parse command line options
+  - exit if there are invalid options
+
+process.c:
+  - read directories only with number and then read necessary files based on the existence of -p option
+  - exit if there are invalid directories
+
+procHelp.c:
+  - read stat, statm, and cmdline files and parse necessary data
+  - exit if there are invalid directories or files
+------------------------------------------------------------
